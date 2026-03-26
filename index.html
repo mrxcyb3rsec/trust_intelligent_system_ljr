@@ -1,1 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hushh Trust Dashboard | Your Data, Your Control</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ═══════════════════════════════════
+         ANIMATED BACKGROUND
+         ═══════════════════════════════════ -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="container py-5">
+        <!-- ═══════════════════════════════════
+             HEADER SECTION
+             ═══════════════════════════════════ -->
+        <header class="text-center mb-5">
+            <div class="logo-wrapper">
+                <div class="logo-shine"></div>
+                <i class="bi bi-shield-check-fill logo-icon"></i>
+            </div>
+            <h1 class="gradient-title">Trust Intelligence System</h1>
+            <p class="tagline">Your Data. Your Rules. Your Control.</p>
+            <div class="status-pill">
+                <span class="pulse-ring"></span>
+                <span id="systemStatus">System Active</span>
+            </div>
+        </header>
 
+        <!-- ═══════════════════════════════════
+             TRUST & RISK SCORES
+             ═══════════════════════════════════ -->
+        <div class="row justify-content-center mb-4 g-4">
+            <!-- Trust Score Card -->
+            <div class="col-lg-5">
+                <div class="glass-card trust-card">
+                    <div class="card-header-flex">
+                        <h3><i class="bi bi-heart-pulse-fill"></i> Trust Score</h3>
+                        <div class="score-circle">
+                            <svg viewBox="0 0 100 100">
+                                <defs>
+                                    <linearGradient id="trustGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#22d3ee"/>
+                                        <stop offset="100%" style="stop-color:#6366f1"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle class="circle-bg" cx="50" cy="50" r="42"/>
+                                <circle class="circle-progress" cx="50" cy="50" r="42" id="trustCircle"/>
+                            </svg>
+                            <div class="score-text">
+                                <span id="score">100</span>
+                                <small>/100</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trust Indicators -->
+                    <div class="trust-indicators">
+                        <div class="indicator">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            <span>Data Encryption</span>
+                            <span class="status-on">Active</span>
+                        </div>
+                        <div class="indicator">
+                            <i class="bi bi-person-check-fill"></i>
+                            <span>Consent Status</span>
+                            <span class="status-on">Revocable</span>
+                        </div>
+                        <div class="indicator">
+                            <i class="bi bi-eye-slash-fill"></i>
+                            <span>Privacy Mode</span>
+                            <span class="status-on">Enabled</span>
+                        </div>
+                        <div class="indicator">
+                            <i class="bi bi-graph-up-arrow"></i>
+                            <span>Transparency</span>
+                            <span class="status-on">Full Access</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Score Card -->
+            <div class="col-lg-5">
+                <div class="glass-card risk-card">
+                    <div class="card-header-flex">
+                        <h3><i class="bi bi-exclamation-triangle-fill"></i> Risk Analysis</h3>
+                    </div>
+                    
+                    <!-- Risk Visual -->
+                    <div class="risk-visual">
+                        <div class="risk-bar">
+                            <div class="risk-fill" id="riskFill"></div>
+                            <div class="risk-marker" id="riskMarker"></div>
+                        </div>
+                        <div class="risk-value">
+                            <span id="risk">40%</span>
+                            <small>Risk Level</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Risk Status -->
+                    <div class="risk-status" id="riskStatus">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>System Normal</span>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" onclick="quickAction('encrypt')">
+                            <i class="bi bi-lock-fill"></i> Encrypt Data
+                        </button>
+                        <button class="quick-action-btn" onclick="quickAction('audit')">
+                            <i class="bi bi-journal-text"></i> View Audit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             SECURITY ALERTS
+             ═══════════════════════════════════ -->
+        <div class="glass-card mb-4">
+            <div class="section-title">
+                <h3><i class="bi bi-bell-fill"></i> Security Alerts</h3>
+                <span class="badge-pill" id="alertCount">0</span>
+            </div>
+            <div id="alerts" class="alerts-area">
+                <div class="empty-alert">
+                    <i class="bi bi-shield-check"></i>
+                    <p>All systems secure. No active alerts.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             AI INSIGHTS
+             ═══════════════════════════════════ -->
+        <div class="glass-card mb-4">
+            <div class="section-title">
+                <h3><i class="bi bi-stars"></i> AI Insights</h3>
+                <button class="btn-refresh" onclick="refreshInsights()">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+            </div>
+            <div id="reasons" class="insights-list">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             SYSTEM ACTION
+             ═══════════════════════════════════ -->
+        <div class="glass-card mb-4">
+            <div class="section-title">
+                <h3><i class="bi bi-lightning-fill"></i> System Action</h3>
+            </div>
+            <div id="action" class="action-box">
+                <i class="bi bi-robot"></i>
+                <span>Monitoring your data relationships...</span>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             ACTIVE PERMISSIONS
+             ═══════════════════════════════════ -->
+        <div class="glass-card mb-4">
+            <div class="section-title">
+                <h3><i class="bi bi-apps"></i> Active Data Permissions</h3>
+                <div class="header-buttons">
+                    <button class="btn-manage" onclick="manageAllPermissions()">
+                        <i class="bi bi-sliders"></i> Manage All
+                    </button>
+                    <button class="btn-revoke-all" onclick="revokeAllConsent()">
+                        <i class="bi bi-x-circle-fill"></i> Revoke All
+                    </button>
+                </div>
+            </div>
+            <div id="apps" class="apps-grid">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             THREAT SIMULATION
+             ═══════════════════════════════════ -->
+        <div class="glass-card mb-4 simulation-area">
+            <div class="section-title">
+                <h3><i class="bi bi-bug-fill"></i> Threat Simulation</h3>
+                <p class="sim-subtitle">Test your system's defenses against attack vectors</p>
+            </div>
+            <div class="sim-description">
+                <i class="bi bi-info-circle"></i>
+                <span>Simulate different attack scenarios to see how your system responds</span>
+            </div>
+            <div class="sim-buttons">
+                <button class="btn-sim attack-btn" onclick="simulateAttack('phishing')">
+                    <i class="bi bi-envelope-exclamation"></i>
+                    <span>Phishing Attack</span>
+                </button>
+                <button class="btn-sim attack-btn" onclick="simulateAttack('breach')">
+                    <i class="bi bi-database-exclamation"></i>
+                    <span>Data Breach</span>
+                </button>
+                <button class="btn-sim attack-btn" onclick="simulateAttack('unauthorized')">
+                    <i class="bi bi-person-x-fill"></i>
+                    <span>Unauthorized Access</span>
+                </button>
+                <button class="btn-sim attack-btn" onclick="simulateAttack('malware')">
+                    <i class="bi bi-virus"></i>
+                    <span>Malware Attempt</span>
+                </button>
+                <button class="btn-sim reset-btn" onclick="resetSystem()">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    <span>Reset System</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             DATA EXPORT SECTION
+             ═══════════════════════════════════ -->
+        <div class="glass-card mb-4 export-area">
+            <div class="section-title">
+                <h3><i class="bi bi-database-fill"></i> Your Data</h3>
+            </div>
+            <div class="export-options">
+                <button class="export-btn" onclick="exportData('json')">
+                    <i class="bi bi-filetype-json"></i>
+                    <span>Export as JSON</span>
+                </button>
+                <button class="export-btn" onclick="exportData('csv')">
+                    <i class="bi bi-filetype-csv"></i>
+                    <span>Export as CSV</span>
+                </button>
+                <button class="export-btn" onclick="viewAuditLog()">
+                    <i class="bi bi-journal-text"></i>
+                    <span>View Audit Log</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             AI CHAT ASSISTANT
+             ═══════════════════════════════════ -->
+        <div class="glass-card chat-card">
+            <div class="chat-header-custom">
+                <div class="ai-avatar-box">
+                    <i class="bi bi-robot"></i>
+                </div>
+                <div>
+                    <h3>AI Privacy Assistant</h3>
+                    <span>Powered by Hushh Consent AI</span>
+                </div>
+                <button class="btn-clear-chat" onclick="clearChat()">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+            <div id="chatHistory" class="chat-messages">
+                <div class="msg bot-msg">
+                    <div class="msg-content">
+                        <i class="bi bi-robot"></i>
+                        <p>Hello! 👋 I'm your Hushh privacy assistant. I can help you understand:</p>
+                    </div>
+                </div>
+                <div class="msg bot-msg">
+                    <div class="msg-content">
+                        <i class="bi bi-robot"></i>
+                        <p>• Your trust score and what it means<br>• Which apps have access to your data<br>• How to revoke consent<br>• Your privacy rights with Hushh</p>
+                    </div>
+                </div>
+                <div class="msg bot-msg">
+                    <div class="msg-content">
+                        <i class="bi bi-robot"></i>
+                        <p>Just ask me anything! What would you like to know?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="question" placeholder="Ask about your data privacy..." onkeypress="handleEnter(event)">
+                <button onclick="askAI()">
+                    <i class="bi bi-send-fill"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-5">
+            <p class="footer-text">
+                <i class="bi bi-heart-fill"></i> Built for Hushh AI Hackathon
+                <br>
+                <small>Your Data. Your Control. Your Privacy.</small>
+            </p>
+        </footer>
+    </div>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+</html>
